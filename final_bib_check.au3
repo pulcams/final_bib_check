@@ -38,13 +38,13 @@ While $thisfield <> "" And $thisfield < "711" ; loop through 7xx or to the end o
 	;===============================
 	; 050
 	;===============================
-	; Cannot be P or PS8001-8599
+	; Cannot be (just) P or PS8001-8599 or PN
 	If $thisfield == "050" Then
 		Send("{TAB 3}{HOME}+{END}")
 		Send("^c")
 		Sleep(100)
 		$f050 = ClipGet()
-		If StringRegExp($f050, "‡a P(S\s+8[0-5][0-9][0-9])?") Then
+		If not StringRegExp($f050, "‡a P(?=(?!S\s?8[0-5][0-9][0-9]))(?=([A-M]|[O-R]|[T-Z]))") Then
 			$pcallno = True
 		EndIf
 		Send("+{TAB 3}")
@@ -52,13 +52,13 @@ While $thisfield <> "" And $thisfield < "711" ; loop through 7xx or to the end o
 	;===============================
 	; 090
 	;===============================
-	; Cannot be P or PS8001-8599
+	; Cannot be (just) P or PS8001-8599 or PN
 	If $thisfield == "090" Then
 		Send("{TAB 3}{HOME}+{END}")
 		Send("^c")
 		Sleep(100)
 		$f090 = ClipGet()
-		If StringRegExp($f090, "‡a P(S\s+8[0-5][0-9][0-9])?") Then
+		If not StringRegExp($f090, "‡a P(?=(?!S\s?8[0-5][0-9][0-9]))(?=([A-M]|[O-R]|[T-Z]))") Then
 			$pcallno = True
 		EndIf
 		Send("+{TAB 3}")
@@ -123,7 +123,7 @@ WEnd
 ; Check variables
 ;===============================
 If $pcallno == False and $lcsh == False Then
-	$msg = "No P call no. and no 6XX_0"
+	$msg = "No literature call no. and no 6XX_0"
 	$flag = 48
 EndIf
 
