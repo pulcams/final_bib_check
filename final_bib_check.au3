@@ -85,6 +85,7 @@ Func checkit()
 			If StringRegExp($f300, "[^1][0-9]+") Then
 				$num300 = True
 			EndIf
+			Sleep(100)
 			If StringRegExp($f300, "\scm\.?") Then
 				$cm300 = True
 			EndIf
